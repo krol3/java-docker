@@ -1,0 +1,27 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Dockerfile'
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Log in to docker.io registry
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login docker.io --username ${{ secrets.DOCKERHUB_USER }} --password-stdin
+      - name: Release
+        run: |
+          docker image build -t danielpacak/docker-mutant-image:1.0 .
+          docker image push danielpacak/docker-mutant-image:1.0
+      - name: Log out from docker.io registry
+        if: ${{ always() }}
+        run: |
+          docker logout docker.io
