@@ -5,6 +5,9 @@ on:
       - main
     paths:
       - 'Dockerfile'
+  workflow_dispatch:
+env:
+  REP: java-sample
 jobs:
   release:
     name: Release
@@ -12,15 +15,28 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
         with:
-          fetch-depth: 0
-      - name: Log in to docker.io registry
-        run: |
-          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login docker.io --username ${{ secrets.DOCKERHUB_USER }} --password-stdin
-      - name: Release
-        run: |
-          docker image build -t danielpacak/docker-mutant-image:1.0 .
-          docker image push danielpacak/docker-mutant-image:1.0
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Get version
+        id: get_version
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: ${{ env.REP }}
+          tag-semver: |
+            {{version}}
+      - name: Build and push - Docker/ECR
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          platforms: linux/amd64
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USER }}/${{ env.REP }}:${{ steps.get_version.outputs.version }}
       - name: Log out from docker.io registry
         if: ${{ always() }}
         run: |
