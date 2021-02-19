@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 VOLUME /tmp
 ARG JAVA_OPTS
 ENV JAVA_OPTS=$JAVA_OPTS
-RUN apt-get update && apt-get install curl bzip2 -y
+RUN apt-get update && apt-get --no-install-recommends install curl bzip2 -y && rm -rf /var/lib/apt/lists/*
 
 # Source http://archive.apache.org/dist/ant/binaries/
 RUN curl -O http://archive.apache.org/dist/ant/binaries/apache-ant-1.6.0-bin.zip
