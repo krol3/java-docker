@@ -9,5 +9,5 @@ RUN curl -O http://archive.apache.org/dist/ant/binaries/apache-ant-1.6.0-bin.zip
 #Unpack Ant
 #RUN tar -xvf apache-ant-1.6.0-bin.tar.bz2
 EXPOSE 3000
-ADD entrypoint.sh .
+COPY entrypoint.sh .
 #ENTRYPOINT ["/bin/bash", "entrypoint.sh"]
