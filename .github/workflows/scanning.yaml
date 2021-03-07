@@ -1,0 +1,56 @@
+name: scanning
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+env:
+  ALIAS_DOCKER: krol3
+  REP: java-docker
+  TRIVY_VERSION: '0.16.0'
+jobs:
+  build:
+    name: Scanning container
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get version
+        id: get_version
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: ${{ env.REP }}
+          tag-semver: |
+            {{version}}
+
+      - name: Build Docker
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          platforms: linux/amd64
+          builder: ${{ steps.buildx.outputs.name }}
+          push: false
+          tags: |
+            ${{ env.ALIAS_DOCKER }}/${{ env.REP }}:${{ steps.get_version.outputs.version }}
+            ${{ env.ALIAS_DOCKER }}/${{ env.REP }}:latest
+
+      - name: Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: image
+          image-ref: 'docker.io/${{ env.ALIAS_DOCKER }}/${{ env.REP }}:${{ steps.get_version.outputs.version }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: false
+          vuln-type: 'os,library'
+          severity: 'MEDIUM,HIGH,CRITICAL'
+
+      - name: Trivy using ubuntu
+        run: |
+          wget https://github.com/aquasecurity/trivy/releases/download/v${{env.TRIVY_VERSION}}/trivy_${{env.TRIVY_VERSION}}_Linux-64bit.deb
+          sudo dpkg -i trivy_${{env.TRIVY_VERSION}}_Linux-64bit.deb
+          trivy ${{ env.ALIAS_DOCKER }}/${{ env.REP }}:${{ steps.get_version.outputs.version }}
