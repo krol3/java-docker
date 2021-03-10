@@ -1,4 +1,4 @@
-name: scanning
+name: trivy
 on:
   push:
     branches:
