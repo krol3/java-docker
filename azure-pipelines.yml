@@ -39,6 +39,8 @@ stages:
         scanType: 'local'
         register: false
         hideBase: false
-        showNegligible: false
-        windowsScannerVersion: '4.2.0'
+        showNegligible: true
         connection: 'demo2404'
+        scanner: 'registry.aquasec.com/scanner:6.2'
+        scanMalware: true
+        showWillNotFix: true
