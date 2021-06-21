@@ -1,4 +1,14 @@
 # Docker
+- task: aquasecScanner@4
+  inputs:
+    image: 'mongo-scan'
+    scanType: 'hosted'
+    register: false
+    hideBase: false
+    showNegligible: false
+    windowsScannerVersion: '4.2.0'
+    registry: 'Docker Hub'
+    windowsScannerVersion: '4.2.0'
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
