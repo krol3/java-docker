@@ -35,4 +35,3 @@ stages:
         showNegligible: false
         windowsScannerVersion: '4.2.0'
         registry: 'Docker Hub'
-        windowsScannerVersion: '4.2.0'
