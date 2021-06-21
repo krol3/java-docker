@@ -28,7 +28,7 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'aqua-register'
-        repository: 'alpine:3'
+        repository: 'alpine'
         command: 'build'
         Dockerfile: '**/Dockerfile'
 
