@@ -29,7 +29,7 @@ stages:
     - task: aquasecScanner@4
       inputs:
         image: 'mongo-scan'
-        scanType: 'hosted'
+        scanType: 'local'
         register: false
         hideBase: false
         showNegligible: false
