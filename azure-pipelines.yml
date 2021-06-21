@@ -37,9 +37,10 @@ stages:
 
     - task: aquasecScanner@4
       inputs:
-        image: 'alpine:3'
+        image: 'mongo'
         scanType: 'local'
         hideBase: false
         showNegligible: true
         connection: 'demo2404'
         scanner: 'registry.aquasec.com/scanner:6.0'
+        registry: 'Docker Hub'
