@@ -25,18 +25,11 @@ stages:
       inputs:
         command: login
         containerRegistry: aqua-register    
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'aqua-register'
-        repository: 'alpine'
-        command: 'build'
-        Dockerfile: '**/Dockerfile'
 
     - task: aquasecScanner@4
       inputs:
         image: 'alpine:3'
         scanType: 'hosted'
-        register: true
         registry: 'Docker Hub'
         hideBase: false
         showNegligible: true
