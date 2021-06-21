@@ -26,10 +26,19 @@ stages:
         command: login
         containerRegistry: aqua-register    
 
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: build
+        repository: alpine
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          3
     - task: aquasecScanner@4
       inputs:
         image: 'alpine:3'
-        scanType: 'hosted'
+        scanType: 'local'
         registry: 'Docker Hub'
         hideBase: false
         showNegligible: true
