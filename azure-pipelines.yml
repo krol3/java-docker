@@ -17,7 +17,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: ubuntu-latest
+      vmImage: mongo-scan
     steps:
     - task: Docker@2
       displayName: Build an image
