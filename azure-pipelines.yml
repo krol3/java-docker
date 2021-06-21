@@ -41,6 +41,6 @@ stages:
         hideBase: false
         showNegligible: true
         connection: 'demo2404'
-        scanner: 'registry.aquasec.com/scanner:6.2'
+        scanner: 'registry.aquasec.com/scanner:6.2.preview6'
         scanMalware: true
         showWillNotFix: true
