@@ -39,7 +39,6 @@ stages:
       inputs:
         image: 'alpine:3'
         scanType: 'local'
-        registry: 'Docker Hub'
         hideBase: false
         showNegligible: true
         connection: 'demo2404'
