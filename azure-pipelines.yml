@@ -1,8 +1,8 @@
 # Docker
 # Build a Docker image
 
-trigger:
-- main
+trigger: none
+pr: none
 
 resources:
 - repo: self
@@ -17,18 +17,19 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: java-scan
+      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       displayName: Build an image
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        repository: java-demo
         tags: |
-          $(tag)
+          latest
     - task: aquasecScanner@4
       inputs:
-        image: 'java-scan'
+        image: 'java-demo'
         scanType: 'local'
         register: false
         hideBase: false
