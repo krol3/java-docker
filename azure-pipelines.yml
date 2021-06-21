@@ -41,5 +41,4 @@ stages:
         hideBase: false
         showNegligible: false
         windowsScannerVersion: '4.2.0'
-        registry: 'Docker Hub'
         connection: 'demo2404'
