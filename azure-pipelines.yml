@@ -31,10 +31,10 @@ stages:
       inputs:
         command: build
         repository: alpine
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        dockerfile: '**/Dockerfile'
         tags: |
           3
+
     - task: aquasecScanner@4
       inputs:
         image: 'alpine:3'
