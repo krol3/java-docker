@@ -17,7 +17,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: mongo-scan
+      vmImage: java-scan
     steps:
     - task: Docker@2
       displayName: Build an image
@@ -28,7 +28,7 @@ stages:
           $(tag)
     - task: aquasecScanner@4
       inputs:
-        image: 'mongo-scan'
+        image: 'java-scan'
         scanType: 'local'
         register: false
         hideBase: false
