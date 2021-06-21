@@ -25,19 +25,13 @@ stages:
       inputs:
         command: login
         containerRegistry: aqua-register    
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: java-demo
-        tags: |
-          latest
+
     - task: aquasecScanner@4
       inputs:
-        image: 'java-demo'
-        scanType: 'local'
-        register: false
+        image: 'alpine:3'
+        scanType: 'hosted'
+        register: true
+        registry: 'Docker Hub'
         hideBase: false
         showNegligible: true
         connection: 'demo2404'
