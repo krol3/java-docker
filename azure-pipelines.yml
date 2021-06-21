@@ -42,5 +42,5 @@ stages:
         hideBase: false
         showNegligible: true
         connection: 'demo2404'
-        scanner: 'registry.aquasec.com/scanner:6.0'
+        scanner: 'registry.aquasec.com/scanner:6.2.RC2'
         registry: 'Docker Hub'
