@@ -26,14 +26,9 @@ stages:
         command: login
         containerRegistry: aqua-register    
 
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: build
-        repository: alpine
-        dockerfile: '**/Dockerfile'
-        tags: |
-          3
+    - bash: |
+        docker pull mongo:latest
+      displayName: Pull Docker image
 
     - task: aquasecScanner@4
       inputs:
