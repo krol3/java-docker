@@ -39,6 +39,7 @@ stages:
       inputs:
         image: 'mongo'
         scanType: 'local'
+        register: false
         registry: false
         hideBase: false
         showNegligible: true
