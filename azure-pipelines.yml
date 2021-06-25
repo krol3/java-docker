@@ -42,5 +42,5 @@ stages:
         registry: false
         hideBase: false
         showNegligible: true
-        connection: 'demo2456'
+        connection: 'demo-2456'
         scanner: 'registry.aquasec.com/scanner:6.2.RC2'
